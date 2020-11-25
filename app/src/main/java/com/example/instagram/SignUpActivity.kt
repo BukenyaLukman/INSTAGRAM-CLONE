@@ -59,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
                             saveUserInfo(fullName,userName, email, progressDialog)
                         }else{
                             val message = task.exception!!.toString()
-                            Toast.makeText(this, "Error: $message$", Toast.LENGTH_LONG)
+                            Toast.makeText(this, "Error: $message$", Toast.LENGTH_LONG).show()
                             mAuth.signOut()
                             progressDialog.dismiss()
                         }
@@ -76,8 +76,8 @@ class SignUpActivity : AppCompatActivity() {
         val userMap = HashMap<String,Any>()
 
         userMap["uid"] = currentUserID
-        userMap["fullname"] = fullName
-        userMap["username"] = userName
+        userMap["fullname"] = fullName.toLowerCase()
+        userMap["username"] = userName.toLowerCase()
         userMap["email"] = email
         userMap["bio"] = "Hey I am using A coder"
 
@@ -89,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
                 if(task.isSuccessful)
                 {
                     progressDialog.dismiss()
-                    Toast.makeText(this, "Account Created successfully", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Account Created successfully", Toast.LENGTH_LONG).show()
 
                     val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -99,7 +99,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 }else{
                     val message = task.exception!!.toString()
-                    Toast.makeText(this, "Error: $message$", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Error: $message$", Toast.LENGTH_LONG).show()
                     FirebaseAuth.getInstance().signOut()
                     progressDialog.dismiss()
                 }
